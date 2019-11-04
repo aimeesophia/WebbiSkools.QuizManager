@@ -17,7 +17,14 @@
 
                 <div id="navbar-collapse" class="collapse navbar-collapse justify-content-end">
                     <form class="form-inline">
-                        <a class="btn btn-outline-light my-2 my-sm-0 text-light" asp-controller="Account" asp-action="Login">Login</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-outline-light my-2 my-sm-0 text-light" asp-controller="Account" asp-action="Logout">Logout</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-light my-2 my-sm-0 text-light" asp-controller="Account" asp-action="Login">Login</a>
+                        }
                     </form>
                 </div>
             </div>
