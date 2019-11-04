@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebbiSkools.QuizManager.Web
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebbiSkools.QuizManager.Tests", "WebbiSkools.QuizManager.Tests\WebbiSkools.QuizManager.Tests.csproj", "{553D039E-502F-459F-B3BF-0FD597AA7BA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebbiSkools.QuizManager.FunctionalTests", "WebbiSkools.QuizManager.FunctionalTests\WebbiSkools.QuizManager.FunctionalTests.csproj", "{7D594805-D942-4A60-A41D-60D621C23AE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{553D039E-502F-459F-B3BF-0FD597AA7BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{553D039E-502F-459F-B3BF-0FD597AA7BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{553D039E-502F-459F-B3BF-0FD597AA7BA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D594805-D942-4A60-A41D-60D621C23AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D594805-D942-4A60-A41D-60D621C23AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D594805-D942-4A60-A41D-60D621C23AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D594805-D942-4A60-A41D-60D621C23AE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
