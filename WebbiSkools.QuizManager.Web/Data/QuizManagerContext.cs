@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using WebbiSkools.QuizManager.Web.Models;
 
 namespace WebbiSkools.QuizManager.Web.Data
 {
+    [ExcludeFromCodeCoverage]
     public class QuizManagerContext : DbContext
     {
         public QuizManagerContext(DbContextOptions<QuizManagerContext> options)

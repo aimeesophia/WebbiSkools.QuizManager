@@ -1,5 +1,8 @@
-﻿namespace WebbiSkools.QuizManager.Web.Models
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace WebbiSkools.QuizManager.Web.Models
 {
+    [ExcludeFromCodeCoverage]
     public class Answer
     {
         public int Id { get; set; }
