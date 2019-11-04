@@ -23,7 +23,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            return View("Login");
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
                 }
             }
 
-            return View();
+            return View("Login");
         }
     }
 }
