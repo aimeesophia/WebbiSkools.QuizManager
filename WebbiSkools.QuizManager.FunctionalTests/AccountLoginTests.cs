@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -7,6 +8,8 @@ using OpenQA.Selenium.Chrome;
 
 namespace WebbiSkools.QuizManager.FunctionalTests
 {
+    [TestFixture]
+    [ExcludeFromCodeCoverage]
     public class AccountLoginTests
     {
         private IWebDriver _driver;
