@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebbiSkools.QuizManager.Web.Data;
@@ -54,6 +55,13 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             }
 
             return View("Login");
+        }
+
+        [Authorize]
+        public IActionResult Logout()
+        {
+            var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
         }
     }
 }
