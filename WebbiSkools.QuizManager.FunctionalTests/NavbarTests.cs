@@ -54,5 +54,18 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             // Assert
             Assert.IsFalse(navbarWelcomeMessageExists);
         }
+
+        [Test]
+        public void Navbar_When_Edit_User_Is_Authenticated_Shows_Create_Button()
+        {
+            // Arrange
+            TestHelper.Login("EditPermissionsUser", _driver);
+
+            // Act
+            var navbarCreateButtonExists = TestHelper.ElementExists(By.CssSelector("[data-testid='navbar-create-button']"), _driver);
+
+            // Assert
+            Assert.IsTrue(navbarCreateButtonExists);
+        }
     }
 }
