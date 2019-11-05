@@ -19,13 +19,11 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             _context = context;
         }
 
-        // GET: Quizzes
         public async Task<IActionResult> Index()
         {
             return View(await _context.Quizzes.ToListAsync());
         }
 
-        // GET: Quizzes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,15 +44,11 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        // GET: Quizzes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Quizzes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title")] Quiz quiz)
@@ -68,7 +62,6 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        // GET: Quizzes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,9 +77,6 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        // POST: Quizzes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title")] Quiz quiz)
@@ -119,7 +109,6 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        // GET: Quizzes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,7 +126,6 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        // POST: Quizzes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
