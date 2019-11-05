@@ -1,0 +1,14 @@
+﻿@model IEnumerable<WebbiSkools.QuizManager.Web.Models.Quiz>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">Quizzes</h1>
+
+<div class="card-deck">
+    @foreach (var quiz in @Model)
+    {
+        <partial name="_QuizCard" model="quiz" />
+    }
+</div>
