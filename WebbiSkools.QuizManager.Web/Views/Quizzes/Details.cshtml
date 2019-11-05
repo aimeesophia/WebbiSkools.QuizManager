@@ -13,12 +13,12 @@
 
         @if (User.IsInRole("View") || User.IsInRole("Edit"))
         {
-            <ul>
+            <ol type="A">
                 @foreach (var answer in question.Answers)
                 {
                     <li class="answer">@answer.Text</li>
                 }
-            </ul>
+            </ol>
         }
     }
 </ol>
