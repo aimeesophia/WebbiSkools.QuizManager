@@ -160,20 +160,10 @@ namespace WebbiSkools.QuizManager.FunctionalTests
 
             // Act
             _driver.FindElement(By.CssSelector("[data-testid='navbar-logout-button']")).Click();
-            var navbarWelcomeMessageExists = Exists(By.CssSelector("[data-testid='navbar-welcome-message']"));
+            var navbarWelcomeMessageExists = TestHelper.ElementExists(By.CssSelector("[data-testid='navbar-welcome-message']"), _driver);
 
             // Assert
             Assert.IsFalse(navbarWelcomeMessageExists);
-        }
-
-        private bool Exists(By by)
-        {
-            if (_driver.FindElements(by).Count != 0)
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }

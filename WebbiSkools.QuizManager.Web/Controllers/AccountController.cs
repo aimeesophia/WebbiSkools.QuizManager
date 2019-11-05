@@ -50,7 +50,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Quizzes");
                 }
             }
 

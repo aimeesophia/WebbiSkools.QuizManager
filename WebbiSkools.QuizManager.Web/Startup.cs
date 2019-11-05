@@ -54,7 +54,7 @@ namespace WebbiSkools.QuizManager.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Quizzes}/{action=Index}/{id?}");
             });
         }
     }
