@@ -19,6 +19,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         public void SetUp()
         {
             _driver = new ChromeDriver();
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         }
 
         [TearDown]
@@ -118,6 +119,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         {
             // Arrange
             var expected = "Hi, RestrictedPermissionsUser!";
+            _driver.Navigate().GoToUrl(Url);
 
             // Act
             _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
