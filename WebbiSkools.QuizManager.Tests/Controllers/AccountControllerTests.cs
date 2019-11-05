@@ -22,12 +22,18 @@ namespace WebbiSkools.QuizManager.Tests
         public void SetUp()
         {
             var options = new DbContextOptionsBuilder<QuizManagerContext>()
-                .UseInMemoryDatabase(databaseName: "TestQuizManager")
+                .UseInMemoryDatabase(databaseName: "AccountControllerTests")
                 .Options;
 
             _quizManagerContext = new QuizManagerContext(options);
 
             _accountController = new AccountController(_quizManagerContext);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _quizManagerContext.Database.EnsureDeleted();
         }
 
         [Test]
@@ -65,21 +71,6 @@ namespace WebbiSkools.QuizManager.Tests
 
             // Act
             var actual = await _accountController.Login(new User() {Username = "TestUsername", Password = "TestPassword"}) as ViewResult;
-
-            // Assert
-            Assert.AreEqual(expected, actual.ViewName);
-        }
-
-        [Test]
-        public async Task Login_Post_When_User_Is_Found_Returns_HomeController_Index_View()
-        {
-            // Arrange
-            var expected = "Index";
-            _quizManagerContext.Users.Add(new User() {Username = "TestUsername", Password = "TestPassword", Role = "TestRole"});
-            _quizManagerContext.SaveChanges();
-
-            // Act
-            var actual = await _accountController.Login(new User() { Username = "TestUsername", Password = "TestPassword" }) as ViewResult;
 
             // Assert
             Assert.AreEqual(expected, actual.ViewName);

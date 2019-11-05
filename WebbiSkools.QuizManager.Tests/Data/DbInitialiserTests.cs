@@ -22,7 +22,7 @@ namespace WebbiSkools.QuizManager.Tests
         public void SetUp()
         {
             var options = new DbContextOptionsBuilder<QuizManagerContext>()
-                .UseInMemoryDatabase(databaseName: "TestQuizManager")
+                .UseInMemoryDatabase(databaseName: "DbInitialiserTests")
                 .Options;
 
             _quizManagerContext = new QuizManagerContext(options);
