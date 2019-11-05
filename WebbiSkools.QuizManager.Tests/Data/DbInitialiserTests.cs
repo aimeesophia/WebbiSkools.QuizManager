@@ -35,17 +35,26 @@ namespace WebbiSkools.QuizManager.Tests
         }
 
         [Test]
-        public void Initialise_When_Users_Is_Empty_Populates_Users()
+        public void Initialise_When_Database_Is_Empty_Populates_Database()
         {
             // Arrange
-            var expected = 3;
+            var expectedNumberOfUsers = 3;
+            var expectedNumberOfQuizzes = 3;
+            var expectedNumberOfQuestions = 12;
+            var expectedNumberOfAnswers = 48;
 
             // Act
             DbInitialiser.Initialise(_quizManagerContext);
-            var actual = _quizManagerContext.Users.Count();
+            var actualNumberOfUsers = _quizManagerContext.Users.Count();
+            var actualNumberOfQuizzes = _quizManagerContext.Quizzes.Count();
+            var actualNumberOfQuestions = _quizManagerContext.Questions.Count();
+            var actualNumberOfAnswers = _quizManagerContext.Answers.Count();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedNumberOfUsers, actualNumberOfUsers);
+            Assert.AreEqual(expectedNumberOfQuizzes, actualNumberOfQuizzes);
+            Assert.AreEqual(expectedNumberOfQuestions, actualNumberOfQuestions);
+            Assert.AreEqual(expectedNumberOfAnswers, actualNumberOfAnswers);
         }
 
         [Test]
@@ -54,14 +63,31 @@ namespace WebbiSkools.QuizManager.Tests
             // Arrange
             _quizManagerContext.Users.Add(new User() {Username = "TestUsername", Password = "TestPassword", Role = "TestRole"});
             _quizManagerContext.SaveChanges();
-            var expected = 1;
+            _quizManagerContext.Quizzes.Add(new Quiz() {Title = "The Software Development Lifecycle"});
+            _quizManagerContext.SaveChanges();
+            _quizManagerContext.Questions.Add(new Question() { QuizId = _quizManagerContext.Quizzes.Single(x => x.Title == "The Software Development Lifecycle").Id, Text = "At which point in the software development lifecycle is a system design document produced?" });
+            _quizManagerContext.SaveChanges();
+            _quizManagerContext.Answers.Add(new Answer() { QuestionId = _quizManagerContext.Questions.Single(x => x.Text == "At which point in the software development lifecycle is a system design document produced?").Id, Text = "Deployment/implementation." });
+            _quizManagerContext.SaveChanges();
+
+            var expectedNumberOfUsers = 1;
+            var expectedNumberOfQuizzes = 1;
+            var expectedNumberOfQuestions = 1;
+            var expectedNumberOfAnswers = 1;
 
             // Act
             DbInitialiser.Initialise(_quizManagerContext);
-            var actual = _quizManagerContext.Users.Count();
+
+            var actualNumberOfUsers = _quizManagerContext.Users.Count();
+            var actualNumberOfQuizzes = _quizManagerContext.Quizzes.Count();
+            var actualNumberOfQuestions = _quizManagerContext.Questions.Count();
+            var actualNumberOfAnswers = _quizManagerContext.Answers.Count();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedNumberOfUsers, actualNumberOfUsers);
+            Assert.AreEqual(expectedNumberOfQuizzes, actualNumberOfQuizzes);
+            Assert.AreEqual(expectedNumberOfQuestions, actualNumberOfQuestions);
+            Assert.AreEqual(expectedNumberOfAnswers, actualNumberOfAnswers);
         }
     }
 }
