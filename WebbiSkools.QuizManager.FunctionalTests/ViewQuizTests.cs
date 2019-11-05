@@ -42,20 +42,10 @@ namespace WebbiSkools.QuizManager.FunctionalTests
 
             // Act
             viewQuizButtons.First().Click();
-            var answerTextsExist = Exists(By.ClassName("answer"));
+            var answerTextsExist = TestHelper.ElementExists(By.ClassName("answer"), _driver);
 
             // Assert
             Assert.IsFalse(answerTextsExist);
-        }
-
-        private bool Exists(By by)
-        {
-            if (_driver.FindElements(by).Count != 0)
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }
