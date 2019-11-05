@@ -18,7 +18,7 @@
                 <div id="navbar-collapse" class="collapse navbar-collapse justify-content-end">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <span class="text-light d-none d-md-block d-lg-block d-xl-block">Hi, @User.Identity.Name!</span>
+                        <span class="text-light d-none d-md-block d-lg-block d-xl-block" data-testid="navbar-welcome-message">Hi, @User.Identity.Name!</span>
                     }
                     <form class="form-inline ml-3">
                         @if (User.Identity.IsAuthenticated)

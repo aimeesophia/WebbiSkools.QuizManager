@@ -112,5 +112,21 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             Assert.AreEqual(usernameValidationSpanExpected, usernameValidationSpan.Text);
             Assert.AreEqual(passwordValidationSpanExpected, passwordValidationSpan.Text);
         }
+
+        [Test]
+        public void Login_When_Successful_Shows_Welcome_Message()
+        {
+            // Arrange
+            var expected = "Hi, RestrictedPermissionsUser!";
+
+            // Act
+            _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
+            _driver.FindElement(By.CssSelector("input[name='Password'")).SendKeys("password");
+            _driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+            var actual = _driver.FindElement(By.CssSelector("[data-testid='navbar-welcome-message']"));
+
+            // Assert
+            Assert.AreEqual(expected, actual.Text);
+        }
     }
 }
