@@ -15,11 +15,11 @@
         {
             <div class="row">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#answers-@question.Id" aria-expanded="false" aria-controls="collapseExample">View Answers</button>
+                    <button type="button" class="btn btn-success" data-testid="view-answers-button" data-toggle="collapse" data-target="#answers-@question.Id" aria-expanded="false" aria-controls="collapseExample">View Answers</button>
                 </div>
             </div>
 
-            <div id="answers-@question.Id" class="collapse mt-2">
+            <div id="answers-@question.Id" class="collapse mt-2" data-testid="answers-bubble">
                 <div class="alert alert-secondary">
                     <ol type="A">
                         @foreach (var answer in question.Answers)
