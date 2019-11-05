@@ -34,7 +34,10 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             }
 
             var quiz = await _context.Quizzes
+                .Include(q => q.Questions)
+                .ThenInclude(q => q.Answers)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (quiz == null)
             {
                 return NotFound();
