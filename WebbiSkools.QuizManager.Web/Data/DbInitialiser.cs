@@ -19,9 +19,9 @@ namespace WebbiSkools.QuizManager.Web.Data
 
             var users = new User[]
             {
-                new User() {Username = "ViewPermissionsUser", Password = "password", Role = "View"},
-                new User() {Username = "RestrictedPermissionsUser", Password = "password", Role = "Restricted"},
-                new User() {Username = "EditPermissionsUser", Password = "password", Role = "Edit"}
+                new User() {Username = "ViewPermissionsUser", Password = "KsZI989Bq+ce7My2vz+9xNt/XRtx6GAWM9dwZr0cX5w=", Role = "View"},
+                new User() {Username = "RestrictedPermissionsUser", Password = "Hd0MMdsBKWOwCOG6W6HqdoAdIa9Z2ydtTq6OMn9Kaw8=", Role = "Restricted"},
+                new User() {Username = "EditPermissionsUser", Password = "HVu5S85JnAa/lRbzu387Hyveq3iKBt5HIrAYxa4beME=", Role = "Edit"}
             };
 
             foreach (var user in users)
