@@ -6,7 +6,7 @@
 
 <h1>@Model.Title</h1>
 
-<ul>
+<ol>
     @foreach (var question in @Model.Questions)
     {
         <li>@question.Text</li>
@@ -21,7 +21,7 @@
             </ul>
         }
     }
-</ul>
+</ol>
 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
