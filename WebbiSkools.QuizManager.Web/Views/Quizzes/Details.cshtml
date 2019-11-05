@@ -13,12 +13,18 @@
 
         @if (User.IsInRole("View") || User.IsInRole("Edit"))
         {
-            <ol type="A">
-                @foreach (var answer in question.Answers)
-                {
-                    <li class="answer">@answer.Text</li>
-                }
-            </ol>
+            <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#answers-@question.Id" aria-expanded="false" aria-controls="collapseExample">View Answers</button>
+            
+            <div id="answers-@question.Id" class="collapse mt-2">
+                <div class="alert alert-secondary">
+                    <ol type="A">
+                        @foreach (var answer in question.Answers)
+                        {
+                            <li class="answer">@answer.Text</li>
+                        }
+                    </ol>
+                </div>
+            </div>
         }
     }
 </ol>
