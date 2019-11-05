@@ -51,14 +51,23 @@ namespace WebbiSkools.QuizManager.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title")] Quiz quiz)
+        public async Task<IActionResult> Create(Quiz quiz)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(quiz);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(quiz);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(quiz);
             }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("Unable to save changes.", ex, null);
+            }
+
             return View(quiz);
         }
 
