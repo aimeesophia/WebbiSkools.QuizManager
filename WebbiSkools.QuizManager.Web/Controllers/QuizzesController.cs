@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +46,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
+        [Authorize(Roles = "Edit")]
         public IActionResult Create()
         {
             return View();
@@ -51,6 +54,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Edit")]
         public async Task<IActionResult> Create(Quiz quiz)
         {
             try
