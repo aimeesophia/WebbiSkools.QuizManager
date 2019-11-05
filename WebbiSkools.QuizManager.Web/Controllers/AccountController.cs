@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebbiSkools.QuizManager.Web.Data;
 using WebbiSkools.QuizManager.Web.Models;
+using WebbiSkools.QuizManager.Web.Utilities;
 
 namespace WebbiSkools.QuizManager.Web.Controllers
 {
@@ -31,8 +32,10 @@ namespace WebbiSkools.QuizManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var hashedPassword = PasswordHash.Create(user.Password, user.Username.ToLower());
+
                 var dbUser = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Username == user.Username && u.Password == user.Password);
+                    .FirstOrDefaultAsync(u => u.Username == user.Username && u.Password == hashedPassword);
 
                 if (dbUser != null)
                 {
