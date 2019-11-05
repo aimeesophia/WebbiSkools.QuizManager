@@ -13,7 +13,6 @@ namespace WebbiSkools.QuizManager.FunctionalTests
     public class AccountTests
     {
         private IWebDriver _driver;
-        private const string Url = "https://localhost:44302/Account/Login";
 
         [SetUp]
         public void SetUp()
@@ -30,11 +29,11 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         }
 
         [Test]
-        public void Login_When_Successful_Redirects_To_HomeController_Index()
+        public void Login_When_Successful_Redirects_To_QuizzesController_Index()
         {
             // Arrange
             var expected = "https://localhost:44302/";
-            _driver.Navigate().GoToUrl(Url);
+            _driver.Navigate().GoToUrl(TestHelper.LoginUrl);
 
             // Act
             _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
@@ -50,7 +49,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         {
             // Arrange
             var expected = "https://localhost:44302/Account/Login";
-            _driver.Navigate().GoToUrl(Url);
+            _driver.Navigate().GoToUrl(TestHelper.LoginUrl);
 
             // Act
             _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
@@ -66,7 +65,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         {
             // Arrange
             var expected = "The Username field is required.";
-            _driver.Navigate().GoToUrl(Url);
+            _driver.Navigate().GoToUrl(TestHelper.LoginUrl);
 
             // Act
             _driver.FindElement(By.CssSelector("input[name='Password']")).SendKeys("password");
@@ -83,7 +82,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         {
             // Arrange
             var expected = "The Password field is required.";
-            _driver.Navigate().GoToUrl(Url);
+            _driver.Navigate().GoToUrl(TestHelper.LoginUrl);
 
             // Act
             _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
@@ -101,7 +100,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             // Arrange
             var usernameValidationSpanExpected = "The Username field is required.";
             var passwordValidationSpanExpected = "The Password field is required.";
-            _driver.Navigate().GoToUrl(Url);
+            _driver.Navigate().GoToUrl(TestHelper.LoginUrl);
 
             // Act
             _driver.FindElement(By.CssSelector("button[type='submit']")).Click();
@@ -119,12 +118,9 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         {
             // Arrange
             var expected = "Hi, RestrictedPermissionsUser!";
-            _driver.Navigate().GoToUrl(Url);
+            TestHelper.Login("RestrictedPermissionsUser", _driver);
 
             // Act
-            _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
-            _driver.FindElement(By.CssSelector("input[name='Password'")).SendKeys("password");
-            _driver.FindElement(By.CssSelector("button[type='submit']")).Click();
             var actual = _driver.FindElement(By.CssSelector("[data-testid='navbar-welcome-message']"));
 
             // Assert
@@ -136,10 +132,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         {
             // Arrange
             var expected = "https://localhost:44302/Account/Login";
-            _driver.Navigate().GoToUrl(Url);
-            _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
-            _driver.FindElement(By.CssSelector("input[name='Password'")).SendKeys("password");
-            _driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+            TestHelper.Login("RestrictedPermissionsUser", _driver);
 
             // Act
             _driver.FindElement(By.CssSelector("[data-testid='navbar-logout-button']")).Click();
@@ -153,10 +146,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         public void Logout_Removes_Welcome_Message()
         {
             // Arrange
-            _driver.Navigate().GoToUrl(Url);
-            _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
-            _driver.FindElement(By.CssSelector("input[name='Password'")).SendKeys("password");
-            _driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+            TestHelper.Login("RestrictedPermissionsUser", _driver);
 
             // Act
             _driver.FindElement(By.CssSelector("[data-testid='navbar-logout-button']")).Click();

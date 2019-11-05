@@ -7,6 +7,8 @@ namespace WebbiSkools.QuizManager.FunctionalTests
 {
     public class TestHelper
     {
+        public const string LoginUrl = "https://localhost:44302/Account/Login";
+
         public static bool ElementExists(By by, IWebDriver driver)
         {
             if (driver.FindElements(by).Count != 0)
@@ -15,6 +17,14 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             }
 
             return false;
+        }
+
+        public static void Login(string username, IWebDriver driver)
+        {
+            driver.Navigate().GoToUrl(LoginUrl);
+            driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys(username);
+            driver.FindElement(By.CssSelector("input[name='Password'")).SendKeys("password");
+            driver.FindElement(By.CssSelector("button[type='submit']")).Click();
         }
     }
 }
