@@ -10,7 +10,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    public class AccountLoginTests
+    public class AccountTests
     {
         private IWebDriver _driver;
         private const string Url = "https://localhost:44302/Account/Login";
@@ -129,6 +129,51 @@ namespace WebbiSkools.QuizManager.FunctionalTests
 
             // Assert
             Assert.AreEqual(expected, actual.Text);
+        }
+
+        [Test]
+        public void Logout_Returns_User_To_Login_Page()
+        {
+            // Arrange
+            var expected = "https://localhost:44302/Account/Login";
+            _driver.Navigate().GoToUrl(Url);
+            _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
+            _driver.FindElement(By.CssSelector("input[name='Password'")).SendKeys("password");
+            _driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+
+            // Act
+            _driver.FindElement(By.CssSelector("[data-testid='navbar-logout-button']")).Click();
+            var actual = _driver.Url;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Logout_Removes_Welcome_Message()
+        {
+            // Arrange
+            _driver.Navigate().GoToUrl(Url);
+            _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("RestrictedPermissionsUser");
+            _driver.FindElement(By.CssSelector("input[name='Password'")).SendKeys("password");
+            _driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+
+            // Act
+            _driver.FindElement(By.CssSelector("[data-testid='navbar-logout-button']")).Click();
+            var navbarWelcomeMessageExists = Exists(By.CssSelector("[data-testid='navbar-welcome-message']"));
+
+            // Assert
+            Assert.IsFalse(navbarWelcomeMessageExists);
+        }
+
+        private bool Exists(By by)
+        {
+            if (_driver.FindElements(by).Count != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

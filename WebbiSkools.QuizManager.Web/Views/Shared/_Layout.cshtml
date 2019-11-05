@@ -23,7 +23,7 @@
                     <form class="form-inline ml-3">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="btn btn-outline-light my-2 my-sm-0 text-light" asp-controller="Account" asp-action="Logout">Logout</a>
+                            <a class="btn btn-outline-light my-2 my-sm-0 text-light" asp-controller="Account" asp-action="Logout" data-testid="navbar-logout-button">Logout</a>
                         }
                         else
                         {
