@@ -67,5 +67,31 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             // Assert
             Assert.IsTrue(navbarCreateButtonExists);
         }
+
+        [Test]
+        public void Navbar_When_View_User_Is_Authenticated_Does_Not_Show_Create_Button()
+        {
+            // Arrange
+            TestHelper.Login("ViewPermissionsUser", _driver);
+
+            // Act
+            var navbarCreateButtonExists = TestHelper.ElementExists(By.CssSelector("[data-testid='navbar-create-button']"), _driver);
+
+            // Assert
+            Assert.IsFalse(navbarCreateButtonExists);
+        }
+
+        [Test]
+        public void Navbar_When_Restricted_User_Is_Authenticated_Does_Not_Show_Create_Button()
+        {
+            // Arrange
+            TestHelper.Login("RestrictedPermissionsUser", _driver);
+
+            // Act
+            var navbarCreateButtonExists = TestHelper.ElementExists(By.CssSelector("[data-testid='navbar-create-button']"), _driver);
+
+            // Assert
+            Assert.IsFalse(navbarCreateButtonExists);
+        }
     }
 }
