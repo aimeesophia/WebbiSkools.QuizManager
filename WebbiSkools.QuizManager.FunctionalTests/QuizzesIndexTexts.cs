@@ -65,5 +65,44 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             // Assert
             Assert.IsTrue(deleteQuizButtonExists);
         }
+
+        [Test]
+        public void Index_When_Restricted_User_Is_Authenticated_Does_Not_Show_Edit_Button_Above_Quizzes()
+        {
+            // Arrange
+            TestHelper.Login("RestrictedPermissionsUser", _driver);
+
+            // Act
+            var deleteQuizButtonExists = TestHelper.ElementExists(By.ClassName("edit-quiz-button"), _driver);
+
+            // Assert
+            Assert.IsFalse(deleteQuizButtonExists);
+        }
+
+        [Test]
+        public void Index_When_View_User_Is_Authenticated_Does_Not_Show_Edit_Button_Above_Quizzes()
+        {
+            // Arrange
+            TestHelper.Login("ViewPermissionsUser", _driver);
+
+            // Act
+            var deleteQuizButtonExists = TestHelper.ElementExists(By.ClassName("edit-quiz-button"), _driver);
+
+            // Assert
+            Assert.IsFalse(deleteQuizButtonExists);
+        }
+
+        [Test]
+        public void Index_When_Edit_User_Is_Authenticated_Shows_Edit_Button_Above_Quizzes()
+        {
+            // Arrange
+            TestHelper.Login("EditPermissionsUser", _driver);
+
+            // Act
+            var deleteQuizButtonExists = TestHelper.ElementExists(By.ClassName("edit-quiz-button"), _driver);
+
+            // Assert
+            Assert.IsTrue(deleteQuizButtonExists);
+        }
     }
 }
