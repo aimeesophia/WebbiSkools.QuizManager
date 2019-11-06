@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using OpenQA.Selenium;
 
 namespace WebbiSkools.QuizManager.FunctionalTests
 {
+    [ExcludeFromCodeCoverage]
     public class TestHelper
     {
         public const string LoginUrl = "https://localhost:44302/Account/Login";
