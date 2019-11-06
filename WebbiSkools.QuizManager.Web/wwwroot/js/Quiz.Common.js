@@ -1,12 +1,21 @@
 ﻿var common = (function () {
     // Public functions
     function addEventBindings() {
+        $(document).ready(function() {
+            toggleAddAnswerButtons();
+            toggleDeleteAnswerButtons();
+        });
+
         $(document).on("click", ".add-question-button", function () {
             addQuestion();
         });
 
         $(document).on("click", ".add-answer-button", function () {
-            addAnswer(this);
+            var answersElement = $(this).prevAll(".answers");
+
+            addAnswer(answersElement);
+            toggleAddAnswerButtons();
+            toggleDeleteAnswerButtons();
         });
 
         $(document).on("click", ".delete-question-button", function () {
@@ -14,7 +23,11 @@
         });
 
         $(document).on("click", ".delete-answer-button", function () {
-            deleteAnswer(this);
+            var answerElement = $(this).parents(".answer");
+
+            deleteAnswer(answerElement);
+            toggleAddAnswerButtons();
+            toggleDeleteAnswerButtons();
         });
 
         $("#create-form-submit-button").click(function (event) {
@@ -78,8 +91,8 @@
         return questionFormGroupHtml;
     }
 
-    function addAnswer(addAnswerButton) {
-        $(addAnswerButton).prevAll(".answers").append(createAnswerFormGroup());
+    function addAnswer(answersElement) {
+        $(answersElement).append(createAnswerFormGroup());
     }
 
     function createAnswerFormGroup() {
@@ -98,8 +111,8 @@
         $(deleteQuestionButton).parents(".question-and-answers-group").remove();
     }
 
-    function deleteAnswer(deleteAnswerButton) {
-        $(deleteAnswerButton).parents(".answer").remove();
+    function deleteAnswer(answerElement) {
+        $(answerElement).remove();
     }
 
     function updateQuestionsAndAnswersAttributes() {
@@ -123,6 +136,70 @@
             });
 
             questionCount++;
+        });
+    }
+
+    function getNumberOfAnswerElements(answersElement) {
+        return $(answersElement).find(".answer").length;
+    }
+
+    function disableAddAnswerButton(answersElement) {
+        var addAnswerButton = $(answersElement).parents(".question-and-answers-group").find(".add-answer-button");
+
+        $(addAnswerButton).attr("disabled", "disabled");
+    }
+
+    function disableDeleteAnswerButtons(answersElement) {
+        var deleteAnswerButtons = $(answersElement).find(".delete-answer-button");
+
+        $(deleteAnswerButtons).each(function() {
+            $(this).attr("disabled", "disabled");
+        });
+    }
+
+    function enableDeleteAnswerButtons(answersElement) {
+        var deleteAnswerButtons = $(answersElement).find(".delete-answer-button");
+
+        $(deleteAnswerButtons).each(function () {
+            $(this).removeAttr("disabled");
+        });
+    }
+
+    function enableAddAnswerButton(answersElement) {
+        var addAnswerButton = $(answersElement).nextAll(".add-answer-button");
+
+        $(addAnswerButton).removeAttr("disabled");
+    }
+
+    function toggleAddAnswerButtons() {
+        var questionAndAnswersGroupElements = $(document).find(".question-and-answers-group");
+
+        $(questionAndAnswersGroupElements).each(function() {
+            var answersElement = $(this).find(".answers");
+
+            if (getNumberOfAnswerElements(answersElement) === 5) {
+                disableAddAnswerButton(answersElement);
+            }
+
+            if (getNumberOfAnswerElements(answersElement) < 5) {
+                enableAddAnswerButton(answersElement);
+            }
+        });
+    }
+
+    function toggleDeleteAnswerButtons() {
+        var questionAndAnswersGroupElements = $(document).find(".question-and-answers-group");
+
+        $(questionAndAnswersGroupElements).each(function() {
+            var answersElement = $(this).find(".answers");
+
+            if (getNumberOfAnswerElements(answersElement) === 3) {
+                disableDeleteAnswerButtons(answersElement);
+            }
+
+            if (getNumberOfAnswerElements(answersElement) > 3) {
+                enableDeleteAnswerButtons(answersElement);
+            }
         });
     }
 

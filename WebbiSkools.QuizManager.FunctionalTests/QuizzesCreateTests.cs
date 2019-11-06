@@ -105,7 +105,9 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         public void Create_When_DeleteAnswer_Button_Is_Clicked_Removes_Answer_Element()
         {
             // Arrange
-            var expectedNumberOfAnswerElements = 2;
+            var expectedNumberOfAnswerElements = 4;
+            _driver.FindElement(By.ClassName("add-answer-button")).Click();
+            _driver.FindElement(By.ClassName("add-answer-button")).Click();
 
             // Act
             _driver.FindElement(By.ClassName("delete-answer-button")).Click();
@@ -113,6 +115,76 @@ namespace WebbiSkools.QuizManager.FunctionalTests
 
             // Assert
             Assert.AreEqual(expectedNumberOfAnswerElements, actualNumberOfAnswerElements);
+        }
+
+        [Test]
+        public void Create_When_Only_Three_Answers_Are_Present_Within_A_Question_Disables_Delete_Answer_Buttons_For_That_Question()
+        {
+            // Arrange
+
+            // Act
+            var deleteAnswerButtons = _driver.FindElements(By.ClassName("delete-answer-button"));
+            var deleteAnswerButtonsEnabled = false;
+            foreach (var deleteAnswerButton in deleteAnswerButtons)
+            {
+                if (deleteAnswerButton.Enabled)
+                {
+                    deleteAnswerButtonsEnabled = true;
+                }
+            }
+
+            // Assert
+            Assert.IsFalse(deleteAnswerButtonsEnabled);
+        }
+
+        [Test]
+        public void Create_When_Delete_Answer_Buttons_Are_Disabled_Are_Enabled_When_There_Are_More_Than_3_Answers_For_That_Question()
+        {
+            // Arrange
+            _driver.FindElement(By.ClassName("add-answer-button")).Click();
+
+            // Act
+            var deleteAnswerButtons = _driver.FindElements(By.ClassName("delete-answer-button"));
+            var deleteAnswerButtonsEnabled = false;
+            foreach (var deleteAnswerButton in deleteAnswerButtons)
+            {
+                if (deleteAnswerButton.Enabled)
+                {
+                    deleteAnswerButtonsEnabled = true;
+                }
+            }
+
+            // Assert
+            Assert.IsTrue(deleteAnswerButtonsEnabled);
+        }
+
+        [Test]
+        public void Create_When_Five_Answers_Are_Present_Within_A_Question_Disables_Add_Answer_Button_For_That_Question()
+        {
+            // Arrange
+
+            // Act
+            _driver.FindElement(By.ClassName("add-answer-button")).Click();
+            _driver.FindElement(By.ClassName("add-answer-button")).Click();
+            var addAnswerButtonEnabled = _driver.FindElement(By.ClassName("add-answer-button")).Enabled;
+
+            // Assert
+            Assert.IsFalse(addAnswerButtonEnabled);
+        }
+
+        [Test]
+        public void Create_When_Add_Answer_Button_Is_Disabled_Is_Enabled_When_There_Are_Less_Than_5_Answers_For_That_Question()
+        {
+            // Arrange
+            _driver.FindElement(By.ClassName("add-answer-button")).Click();
+            _driver.FindElement(By.ClassName("add-answer-button")).Click();
+
+            // Act
+            _driver.FindElement(By.ClassName("delete-answer-button")).Click();
+            var addAnswerButtonEnabled = _driver.FindElement(By.ClassName("add-answer-button")).Enabled;
+
+            // Assert
+            Assert.IsTrue(addAnswerButtonEnabled);
         }
     }
 }
