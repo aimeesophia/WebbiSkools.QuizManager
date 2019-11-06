@@ -1,30 +1,58 @@
 ﻿@model WebbiSkools.QuizManager.Web.Models.Quiz
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Quiz";
 }
 
-<h1>Create</h1>
+@section Scripts {
+    <script src="~/js/Quiz.Create.js"></script>
+}
 
-<h4>Quiz</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<h1 class="text-center">Create Quiz</h1>
+
+<form asp-action="Create" id="create-form">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input asp-for="Title" class="form-control" placeholder="Quiz Title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+    <div id="all-questions-and-answers">
+        <div class="question-and-answers-group mb-3">
+            <div class="question">
+                <div class="form-group">
+                    <input asp-for="Questions.First().Text" class="form-control question-text-input" name="Questions[0].Text" placeholder="Question" />
+                    <span asp-validation-for="Questions.First().Text" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="answers">
+                <div class="form-group answer">
+                    <div class="input-group">
+                        <input asp-for="Questions.First().Answers.First().Text" class="form-control answer-text-input" name="Questions[0].Answers[0].Text" placeholder="Answer" />
+                        <button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>
+                    </div>
+                    <span asp-validation-for="Questions.First().Answers.First().Text"></span>
+                </div>
+                <div class="form-group answer">
+                    <div class="input-group">
+                        <input asp-for="Questions.First().Answers.First().Text" class="form-control answer-text-input" name="Questions[0].Answers[1].Text" placeholder="Answer" />
+                        <button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>
+                    </div>
+                    <span asp-validation-for="Questions.First().Answers.First().Text"></span>
+                </div>
+                <div class="form-group answer">
+                    <div class="input-group">
+                        <input asp-for="Questions.First().Answers.First().Text" class="form-control answer-text-input" name="Questions[0].Answers[2].Text" placeholder="Answer" />
+                        <button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>
+                    </div>
+                    <span asp-validation-for="Questions.First().Answers.First().Text"></span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-success add-question-button">Add Question</button>
+            <button type="button" class="btn btn-success add-answer-button">Add Answer</button>
+            <button type="button" class="btn btn-danger delete-question-button">Delete Question</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" id="create-form-submit-button" class="btn btn-primary">Submit</button>
+    </div>
+</form>

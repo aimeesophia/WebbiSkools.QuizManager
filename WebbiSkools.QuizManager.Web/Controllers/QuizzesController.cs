@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +21,11 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             _context = context;
         }
 
-        // GET: Quizzes
         public async Task<IActionResult> Index()
         {
             return View(await _context.Quizzes.ToListAsync());
         }
 
-        // GET: Quizzes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,29 +46,35 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        // GET: Quizzes/Create
+        [Authorize(Roles = "Edit")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Quizzes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title")] Quiz quiz)
+        [Authorize(Roles = "Edit")]
+        public async Task<IActionResult> Create(Quiz quiz)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(quiz);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(quiz);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(quiz);
             }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("Unable to save changes.", ex, null);
+            }
+
             return View(quiz);
         }
 
-        // GET: Quizzes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,9 +90,6 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        // POST: Quizzes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title")] Quiz quiz)
@@ -119,7 +122,6 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        // GET: Quizzes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,7 +139,6 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        // POST: Quizzes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

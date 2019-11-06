@@ -114,20 +114,6 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         }
 
         [Test]
-        public void Login_When_Successful_Shows_Welcome_Message()
-        {
-            // Arrange
-            var expected = "Hi, RestrictedPermissionsUser!";
-            TestHelper.Login("RestrictedPermissionsUser", _driver);
-
-            // Act
-            var actual = _driver.FindElement(By.CssSelector("[data-testid='navbar-welcome-message']"));
-
-            // Assert
-            Assert.AreEqual(expected, actual.Text);
-        }
-
-        [Test]
         public void Logout_Returns_User_To_Login_Page()
         {
             // Arrange
@@ -140,20 +126,6 @@ namespace WebbiSkools.QuizManager.FunctionalTests
 
             // Assert
             Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public void Logout_Removes_Welcome_Message()
-        {
-            // Arrange
-            TestHelper.Login("RestrictedPermissionsUser", _driver);
-
-            // Act
-            _driver.FindElement(By.CssSelector("[data-testid='navbar-logout-button']")).Click();
-            var navbarWelcomeMessageExists = TestHelper.ElementExists(By.CssSelector("[data-testid='navbar-welcome-message']"), _driver);
-
-            // Assert
-            Assert.IsFalse(navbarWelcomeMessageExists);
         }
     }
 }
