@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Quizzes.ToListAsync());
+            return View("Index", await _context.Quizzes.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -49,7 +50,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
         [Authorize(Roles = "Edit")]
         public IActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         [HttpPost]
@@ -65,14 +66,14 @@ namespace WebbiSkools.QuizManager.Web.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                return View(quiz);
+                return View("Create", quiz);
             }
             catch (DbUpdateException ex)
             {
                 ModelState.AddModelError("Unable to save changes.", ex, null);
             }
 
-            return View(quiz);
+            return View("Create", quiz);
         }
 
         [Authorize(Roles = "Edit")]
@@ -92,7 +93,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             {
                 return NotFound();
             }
-            return View(quiz);
+            return View("Edit", quiz);
         }
 
         [HttpPost]
@@ -134,7 +135,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
                 }
             }
 
-            return View(quiz);
+            return View("Edit", quiz);
         }
 
         [Authorize(Roles = "Edit")]
@@ -160,7 +161,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
                 ViewData["ErrorMessage"] = "Delete failed. Please try again.";
             }
 
-            return View(quiz);
+            return View("Delete", quiz);
         }
 
         [Authorize(Roles = "Edit")]
@@ -187,6 +188,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private bool QuizExists(int id)
         {
             return _context.Quizzes.Any(e => e.Id == id);
