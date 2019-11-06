@@ -75,6 +75,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
+        [Authorize(Roles = "Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,7 +83,10 @@ namespace WebbiSkools.QuizManager.Web.Controllers
                 return NotFound();
             }
 
-            var quiz = await _context.Quizzes.FindAsync(id);
+            var quiz = await _context.Quizzes
+                .Include(q => q.Questions)
+                .FirstOrDefaultAsync(q => q.Id == id);
+
             if (quiz == null)
             {
                 return NotFound();
@@ -92,6 +96,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Edit")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title")] Quiz quiz)
         {
             if (id != quiz.Id)
