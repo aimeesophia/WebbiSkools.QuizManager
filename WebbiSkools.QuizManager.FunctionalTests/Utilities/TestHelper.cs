@@ -8,6 +8,8 @@ namespace WebbiSkools.QuizManager.FunctionalTests
     public class TestHelper
     {
         public const string LoginUrl = "https://localhost:44302/Account/Login";
+        public const string QuizzesCreateUrl = "https://localhost:44302/Quizzes/Create";
+        public const string ErrorAccessDeniedUrl = "https://localhost:44302/Error/AccessDenied";
 
         public static bool ElementExists(By by, IWebDriver driver)
         {
