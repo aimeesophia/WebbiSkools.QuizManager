@@ -16,6 +16,14 @@
         $(document).on("click", ".delete-answer-button", function () {
             deleteAnswer(this);
         });
+
+        $("#create-form-submit-button").click(function (event) {
+            event.preventDefault();
+
+            updateQuestionsAndAnswersAttributes();
+
+            $("#create-form").submit();
+        });
     }
 
     // Private functions
@@ -27,28 +35,28 @@
         var questionFormGroupHtml = '<div class="question-and-answers-group mb-3">' +
             '<div class="question">' +
             '<div class="form-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control" name="TOBECHANGED" placeholder="Question" />' +
+            '<input asp-for="TOBECHANGED" class="form-control question-text-input" name="TOBECHANGED" placeholder="Question" />' +
             '<span asp-validation-for="TOBECHANGED" class="text-danger"></span>' +
             '</div>' +
             '</div>' +
             '<div class="answers">' +
             '<div class="form-group answer">' +
             '<div class="input-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control" name="TOBECHANGED" placeholder="Answer" />' +
+            '<input asp-for="TOBECHANGED" class="form-control answer-text-input" name="TOBECHANGED" placeholder="Answer" />' +
             '<button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>' +
             '</div>' +
             '<span asp-validation-for="TOBECHANGED"></span>' +
             '</div>' +
             '<div class="form-group answer">' +
             '<div class="input-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control" name="TOBECHANGED" placeholder="Answer" />' +
+            '<input asp-for="TOBECHANGED" class="form-control answer-text-input" name="TOBECHANGED" placeholder="Answer" />' +
             '<button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>' +
             '</div>' +
             '<span asp-validation-for="TOBECHANGED"></span>' +
             '</div>' +
             '<div class="form-group answer">' +
             '<div class="input-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control" name="TOBECHANGED" placeholder="Answer" />' +
+            '<input asp-for="TOBECHANGED" class="form-control answer-text-input" name="TOBECHANGED" placeholder="Answer" />' +
             '<button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>' +
             '</div>' +
             '<span asp-validation-for="TOBECHANGED"></span>' +
@@ -69,7 +77,7 @@
     function createAnswerFormGroup() {
         var answerFormGroupHtml = '<div class="form-group answer">' +
             '<div class="input-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control" name="TOBECHANGED" placeholder="Answer" />' +
+            '<input asp-for="TOBECHANGED" class="form-control answer-text-input" name="TOBECHANGED" placeholder="Answer" />' +
             '<button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>' +
             '</div>' +
             '<span asp-validation-for="TOBECHANGED"></span>' +
@@ -84,6 +92,30 @@
 
     function deleteAnswer(deleteAnswerButton) {
         $(deleteAnswerButton).parents(".answer").remove();
+    }
+
+    function updateQuestionsAndAnswersAttributes() {
+        var questionCount = 0;
+        var questionAndAnswersGroups = $(".question-and-answers-group");
+
+        questionAndAnswersGroups.each(function () {
+            var questionAnswerFormGroup = $(this);
+            var answerCount = 0;
+
+            questionAnswerFormGroup.find(".question-text-input").attr("name", "Questions[" + questionCount + "].Text");
+
+            var answers = questionAnswerFormGroup.find(".answer");
+
+            answers.each(function () {
+                var answer = $(this);
+
+                answer.find(".answer-text-input").attr("name", "Questions[" + questionCount + "].Answers[" + answerCount + "].Text");
+
+                answerCount++;
+            });
+
+            questionCount++;
+        });
     }
 
     // Exposed functions

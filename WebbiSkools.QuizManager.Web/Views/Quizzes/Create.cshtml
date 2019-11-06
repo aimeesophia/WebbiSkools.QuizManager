@@ -10,7 +10,7 @@
 
 <h1 class="text-center">Create Quiz</h1>
 
-<form asp-action="Create">
+<form asp-action="Create" id="create-form">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <input asp-for="Title" class="form-control" placeholder="Quiz Title" />
@@ -20,28 +20,28 @@
         <div class="question-and-answers-group mb-3">
             <div class="question">
                 <div class="form-group">
-                    <input asp-for="Questions.First().Text" class="form-control" name="Questions[0].Text" placeholder="Question" />
+                    <input asp-for="Questions.First().Text" class="form-control question-text-input" name="Questions[0].Text" placeholder="Question" />
                     <span asp-validation-for="Questions.First().Text" class="text-danger"></span>
                 </div>
             </div>
             <div class="answers">
                 <div class="form-group answer">
                     <div class="input-group">
-                        <input asp-for="Questions.First().Answers.First().Text" class="form-control" name="Questions[0].Answers[0].Text" placeholder="Answer" />
+                        <input asp-for="Questions.First().Answers.First().Text" class="form-control answer-text-input" name="Questions[0].Answers[0].Text" placeholder="Answer" />
                         <button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>
                     </div>
                     <span asp-validation-for="Questions.First().Answers.First().Text"></span>
                 </div>
                 <div class="form-group answer">
                     <div class="input-group">
-                        <input asp-for="Questions.First().Answers.First().Text" class="form-control" name="Questions[0].Answers[1].Text" placeholder="Answer" />
+                        <input asp-for="Questions.First().Answers.First().Text" class="form-control answer-text-input" name="Questions[0].Answers[1].Text" placeholder="Answer" />
                         <button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>
                     </div>
                     <span asp-validation-for="Questions.First().Answers.First().Text"></span>
                 </div>
                 <div class="form-group answer">
                     <div class="input-group">
-                        <input asp-for="Questions.First().Answers.First().Text" class="form-control" name="Questions[0].Answers[2].Text" placeholder="Answer" />
+                        <input asp-for="Questions.First().Answers.First().Text" class="form-control answer-text-input" name="Questions[0].Answers[2].Text" placeholder="Answer" />
                         <button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>
                     </div>
                     <span asp-validation-for="Questions.First().Answers.First().Text"></span>
@@ -53,6 +53,6 @@
         </div>
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" id="create-form-submit-button" class="btn btn-primary">Submit</button>
     </div>
 </form>
