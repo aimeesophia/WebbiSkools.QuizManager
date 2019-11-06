@@ -1,6 +1,11 @@
 ﻿var common = (function () {
     // Public functions
     function addEventBindings() {
+        $(document).ready(function() {
+            toggleAddAnswerButtons();
+            toggleDeleteAnswerButtons();
+        });
+
         $(document).on("click", ".add-question-button", function () {
             addQuestion();
         });
@@ -9,8 +14,8 @@
             var answersElement = $(this).prevAll(".answers");
 
             addAnswer(answersElement);
-            toggleAddAnswerButton(answersElement);
-            toggleDeleteAnswerButtons(answersElement);
+            toggleAddAnswerButtons();
+            toggleDeleteAnswerButtons();
         });
 
         $(document).on("click", ".delete-question-button", function () {
@@ -18,12 +23,11 @@
         });
 
         $(document).on("click", ".delete-answer-button", function () {
-            var answersElement = $(this).parents(".answers");
             var answerElement = $(this).parents(".answer");
 
             deleteAnswer(answerElement);
-            toggleAddAnswerButton(answersElement);
-            toggleDeleteAnswerButtons(answersElement);
+            toggleAddAnswerButtons();
+            toggleDeleteAnswerButtons();
         });
 
         $("#create-form-submit-button").click(function (event) {
@@ -167,24 +171,36 @@
         $(addAnswerButton).removeAttr("disabled");
     }
 
-    function toggleAddAnswerButton(answersElement) {
-        if (getNumberOfAnswerElements(answersElement) === 5) {
-            disableAddAnswerButton(answersElement);
-        }
+    function toggleAddAnswerButtons() {
+        var questionAndAnswersGroupElements = $(document).find(".question-and-answers-group");
 
-        if (getNumberOfAnswerElements(answersElement) < 5) {
-            enableAddAnswerButton(answersElement);
-        }
+        $(questionAndAnswersGroupElements).each(function() {
+            var answersElement = $(this).find(".answers");
+
+            if (getNumberOfAnswerElements(answersElement) === 5) {
+                disableAddAnswerButton(answersElement);
+            }
+
+            if (getNumberOfAnswerElements(answersElement) < 5) {
+                enableAddAnswerButton(answersElement);
+            }
+        });
     }
 
-    function toggleDeleteAnswerButtons(answersElement) {
-        if (getNumberOfAnswerElements(answersElement) === 3) {
-            disableDeleteAnswerButtons(answersElement);
-        }
+    function toggleDeleteAnswerButtons() {
+        var questionAndAnswersGroupElements = $(document).find(".question-and-answers-group");
 
-        if (getNumberOfAnswerElements(answersElement) > 3) {
-            enableDeleteAnswerButtons(answersElement);
-        }
+        $(questionAndAnswersGroupElements).each(function() {
+            var answersElement = $(this).find(".answers");
+
+            if (getNumberOfAnswerElements(answersElement) === 3) {
+                disableDeleteAnswerButtons(answersElement);
+            }
+
+            if (getNumberOfAnswerElements(answersElement) > 3) {
+                enableDeleteAnswerButtons(answersElement);
+            }
+        });
     }
 
     // Exposed functions
