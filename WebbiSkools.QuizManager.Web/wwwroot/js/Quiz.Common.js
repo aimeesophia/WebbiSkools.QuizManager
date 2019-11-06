@@ -8,14 +8,9 @@
         $(document).on("click", ".add-answer-button", function () {
             var answersElement = $(this).prevAll(".answers");
 
-            if (getNumberOfAnswerElements(answersElement) < 5) {
-                addAnswer(answersElement);
-                enableDeleteAnswerButtons(answersElement);
-
-                if (getNumberOfAnswerElements(answersElement) === 5) {
-                    disableAddAnswerButton(answersElement);
-                }
-            }
+            addAnswer(answersElement);
+            toggleAddAnswerButton(answersElement);
+            toggleDeleteAnswerButtons(answersElement);
         });
 
         $(document).on("click", ".delete-question-button", function () {
@@ -26,14 +21,9 @@
             var answersElement = $(this).parents(".answers");
             var answerElement = $(this).parents(".answer");
 
-            if (getNumberOfAnswerElements(answersElement) > 3) {
-                deleteAnswer(answerElement);
-                enableAddAnswerButton(answersElement);
-
-                if (getNumberOfAnswerElements(answersElement) === 3) {
-                    disableDeleteAnswerButtons(answersElement);
-                }
-            }
+            deleteAnswer(answerElement);
+            toggleAddAnswerButton(answersElement);
+            toggleDeleteAnswerButtons(answersElement);
         });
 
         $("#create-form-submit-button").click(function (event) {
@@ -175,6 +165,26 @@
         var addAnswerButton = $(answersElement).nextAll(".add-answer-button");
 
         $(addAnswerButton).removeAttr("disabled");
+    }
+
+    function toggleAddAnswerButton(answersElement) {
+        if (getNumberOfAnswerElements(answersElement) === 5) {
+            disableAddAnswerButton(answersElement);
+        }
+
+        if (getNumberOfAnswerElements(answersElement) < 5) {
+            enableAddAnswerButton(answersElement);
+        }
+    }
+
+    function toggleDeleteAnswerButtons(answersElement) {
+        if (getNumberOfAnswerElements(answersElement) === 3) {
+            disableDeleteAnswerButtons(answersElement);
+        }
+
+        if (getNumberOfAnswerElements(answersElement) > 3) {
+            enableDeleteAnswerButtons(answersElement);
+        }
     }
 
     // Exposed functions
