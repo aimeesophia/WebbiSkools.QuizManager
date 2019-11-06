@@ -85,6 +85,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
 
             var quiz = await _context.Quizzes
                 .Include(q => q.Questions)
+                .ThenInclude(q => q.Answers)
                 .FirstOrDefaultAsync(q => q.Id == id);
 
             if (quiz == null)
@@ -97,7 +98,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Edit")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title")] Quiz quiz)
+        public async Task<IActionResult> Edit(int id, Quiz quiz)
         {
             if (id != quiz.Id)
             {
@@ -106,24 +107,33 @@ namespace WebbiSkools.QuizManager.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                var quizToUpdate = await _context.Quizzes
+                    .Include(q => q.Questions)
+                    .ThenInclude(q => q.Answers)
+                    .FirstOrDefaultAsync(q => q.Id == id);
+
+                if (await TryUpdateModelAsync<Quiz>(
+                    quizToUpdate,
+                    ""))
                 {
-                    _context.Update(quiz);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!QuizExists(quiz.Id))
+                    try
                     {
-                        return NotFound();
+                        await _context.SaveChangesAsync();
+
+                        return RedirectToAction(nameof(Index));
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!QuizExists(quiz.Id))
+                        {
+                            return NotFound();
+                        }
+                        
+                        ModelState.AddModelError("", "Unable to save changes. Please try again.");
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
+
             return View(quiz);
         }
 
@@ -173,7 +183,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             }
             catch
             {
-                return RedirectToAction(nameof(Delete), new {id = id, saveChnagesError = true});
+                return RedirectToAction(nameof(Delete), new { id = id, saveChnagesError = true });
             }
         }
 
