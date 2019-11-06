@@ -1,4 +1,4 @@
-﻿var create = (function () {
+﻿var common = (function () {
     // Public functions
     function addEventBindings() {
         $(document).on("click", ".add-question-button", function () {
@@ -23,6 +23,14 @@
             updateQuestionsAndAnswersAttributes();
 
             $("#create-form").submit();
+        });
+
+        $("#edit-form-submit-button").click(function (event) {
+            event.preventDefault();
+
+            updateQuestionsAndAnswersAttributes();
+
+            $("#edit-form").submit();
         });
     }
 
@@ -125,5 +133,5 @@
 })();
 
 $(document).ready(function () {
-    create.addEventBindings();
+    common.addEventBindings();
 });

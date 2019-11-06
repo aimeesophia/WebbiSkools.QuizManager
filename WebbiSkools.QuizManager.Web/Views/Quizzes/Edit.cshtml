@@ -4,28 +4,61 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+@section Scripts {
+    <script src="~/js/Quiz.Common.js"></script>
+}
 
-<h4>Quiz</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<h1 class="text-center">Edit Quiz</h1>
+
+<form asp-action="Edit" id="edit-form">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input asp-for="Title" class="form-control" placeholder="Quiz Title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
-</div>
+    <div id="all-questions-and-answers">
+        @{
+            var questionCount = 0;
+        }
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+        @foreach (var question in Model.Questions)
+        {
+            <div class="question-and-answers-group mb-3">
+                <div class="question">
+                    <div class="form-group">
+                        <input type="hidden" name="Questions[@questionCount].Id" value="@question.Id" />
+                        <input asp-for="@question.Text" class="form-control question-text-input" name="Questions[@questionCount].Text" />
+                        <span asp-validation-for="@question.Text" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="answers">
+                    @{
+                        var answerCount = 0;
+                    }
+                    
+                    @foreach (var answer in question.Answers)
+                    {
+                        <div class="form-group answer">
+                            <div class="input-group">
+                                <input type="hidden" name="Questions[@questionCount].Answers[@answerCount].Id" value="@answer.Id" />
+                                <input asp-for="@answer.Text" class="form-control answer-text-input" name="Questions[@questionCount].Answers[@answerCount].Text"/>
+                                <button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>
+                            </div>
+                            <span asp-validation-for="@answer.Text"></span>
+                        </div>
 
+                        answerCount++;
+                    }
+                </div>
+                <button type="button" class="btn btn-success add-question-button">Add Question</button>
+                <button type="button" class="btn btn-success add-answer-button">Add Answer</button>
+                <button type="button" class="btn btn-danger delete-question-button">Delete Question</button>
+            </div>
+
+            questionCount++;
+        }
+    </div>
+    <div class="form-group">
+        <button type="submit" id="edit-form-submit-button" class="btn btn-primary">Submit</button>
+    </div>
+</form>
