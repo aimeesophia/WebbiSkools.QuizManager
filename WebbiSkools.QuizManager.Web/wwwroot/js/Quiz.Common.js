@@ -10,6 +10,7 @@
 
             if (getNumberOfAnswerElements(answersElement) < 5) {
                 addAnswer(answersElement);
+                enableDeleteAnswerButtons(answersElement);
 
                 if (getNumberOfAnswerElements(answersElement) === 5) {
                     disableAddAnswerButton(answersElement);
@@ -22,7 +23,17 @@
         });
 
         $(document).on("click", ".delete-answer-button", function () {
-            deleteAnswer(this);
+            var answersElement = $(this).parents(".answers");
+            var answerElement = $(this).parents(".answer");
+
+            if (getNumberOfAnswerElements(answersElement) > 3) {
+                deleteAnswer(answerElement);
+                enableAddAnswerButton(answersElement);
+
+                if (getNumberOfAnswerElements(answersElement) === 3) {
+                    disableDeleteAnswerButtons(answersElement);
+                }
+            }
         });
 
         $("#create-form-submit-button").click(function (event) {
@@ -106,8 +117,8 @@
         $(deleteQuestionButton).parents(".question-and-answers-group").remove();
     }
 
-    function deleteAnswer(deleteAnswerButton) {
-        $(deleteAnswerButton).parents(".answer").remove();
+    function deleteAnswer(answerElement) {
+        $(answerElement).remove();
     }
 
     function updateQuestionsAndAnswersAttributes() {
@@ -142,6 +153,28 @@
         var addAnswerButton = $(answersElement).parents(".question-and-answers-group").find(".add-answer-button");
 
         $(addAnswerButton).attr("disabled", "disabled");
+    }
+
+    function disableDeleteAnswerButtons(answersElement) {
+        var deleteAnswerButtons = $(answersElement).find(".delete-answer-button");
+
+        $(deleteAnswerButtons).each(function() {
+            $(this).attr("disabled", "disabled");
+        });
+    }
+
+    function enableDeleteAnswerButtons(answersElement) {
+        var deleteAnswerButtons = $(answersElement).find(".delete-answer-button");
+
+        $(deleteAnswerButtons).each(function () {
+            $(this).removeAttr("disabled");
+        });
+    }
+
+    function enableAddAnswerButton(answersElement) {
+        var addAnswerButton = $(answersElement).nextAll(".add-answer-button");
+
+        $(addAnswerButton).removeAttr("disabled");
     }
 
     // Exposed functions
