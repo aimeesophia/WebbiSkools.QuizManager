@@ -32,10 +32,10 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         {
             // Arrange
             TestHelper.Login("RestrictedPermissionsUser", _driver);
-            var expected = TestHelper.ErrorAccessDeniedUrl;
+            var expected = TestHelper.ErrorAccessDeniedUrl + "?ReturnUrl=%2FQuizzes%2FCreate";
 
             // Act
-            _driver.Navigate().GoToUrl(TestHelper.QuizzesCreateUrl + "?ReturnUrl=%2FQuizzes%2FCreate");
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesCreateUrl);
 
             // Assert
             Assert.AreEqual(expected, _driver.Url);
@@ -46,10 +46,10 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         {
             // Arrange
             TestHelper.Login("RestrictedPermissionsUser", _driver);
-            var expected = TestHelper.ErrorAccessDeniedUrl;
+            var expected = TestHelper.ErrorAccessDeniedUrl + "?ReturnUrl=%2FQuizzes%2FCreate";
 
             // Act
-            _driver.Navigate().GoToUrl(TestHelper.QuizzesCreateUrl + "?ReturnUrl=%2FQuizzes%2FCreate");
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesCreateUrl);
 
             // Assert
             Assert.AreEqual(expected, _driver.Url);
