@@ -1,6 +1,16 @@
 ﻿@model WebbiSkools.QuizManager.Web.Models.Quiz
 
 <div class="card">
+    @if (User.IsInRole("Edit"))
+    {
+        <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item px-1">
+                    <a class="btn btn-outline-primary delete-quiz-button" asp-controller="Quizzes" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                </li>
+            </ul>
+        </div>
+    }
     <div class="card-body">
         <h5 class="card-title">@Model.Title</h5>
         <a class="btn btn-primary" asp-controller="Quizzes" asp-action="Details" asp-route-id="@Model.Id" data-testid="view-quiz-button">View Quiz</a>

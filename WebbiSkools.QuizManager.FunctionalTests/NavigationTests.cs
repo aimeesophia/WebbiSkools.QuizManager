@@ -54,5 +54,61 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             // Assert
             Assert.AreEqual(expected, _driver.Url);
         }
+
+        [Test]
+        public void Navigation_When_Restricted_User_Navigates_To_QuizzesController_Delete_Is_Redirected_To_ErrorController_AccessDenied()
+        {
+            // Arrange
+            TestHelper.Login("RestrictedPermissionsUser", _driver);
+            var expected = TestHelper.ErrorAccessDeniedUrl + "?ReturnUrl=%2FQuizzes%2FDelete%3Fid%3D1";
+
+            // Act
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesDeleteUrl);
+
+            // Assert
+            Assert.AreEqual(expected, _driver.Url);
+        }
+
+        [Test]
+        public void Navigation_When_View_User_Navigates_To_QuizzesController_Delete_Is_Redirected_To_ErrorController_AccessDenied()
+        {
+            // Arrange
+            TestHelper.Login("ViewPermissionsUser", _driver);
+            var expected = TestHelper.ErrorAccessDeniedUrl + "?ReturnUrl=%2FQuizzes%2FDelete%3Fid%3D1";
+
+            // Act
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesDeleteUrl);
+
+            // Assert
+            Assert.AreEqual(expected, _driver.Url);
+        }
+
+        [Test]
+        public void Navigation_When_Restricted_User_Navigates_To_QuizzesController_DeleteConfirmed_Is_Redirected_To_ErrorController_AccessDenied()
+        {
+            // Arrange
+            TestHelper.Login("RestrictedPermissionsUser", _driver);
+            var expected = TestHelper.ErrorAccessDeniedUrl + "?ReturnUrl=%2FQuizzes%2FDelete%3Fid%3D1";
+
+            // Act
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesDeleteConfirmedUrl);
+
+            // Assert
+            Assert.AreEqual(expected, _driver.Url);
+        }
+
+        [Test]
+        public void Navigation_When_View_User_Navigates_To_QuizzesController_DeleteConfirmed_Is_Redirected_To_ErrorController_AccessDenied()
+        {
+            // Arrange
+            TestHelper.Login("ViewPermissionsUser", _driver);
+            var expected = TestHelper.ErrorAccessDeniedUrl + "?ReturnUrl=%2FQuizzes%2FDelete%3Fid%3D1";
+
+            // Act
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesDeleteConfirmedUrl);
+
+            // Assert
+            Assert.AreEqual(expected, _driver.Url);
+        }
     }
 }

@@ -122,7 +122,8 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        [Authorize(Roles = "Edit")]
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
@@ -130,23 +131,45 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             }
 
             var quiz = await _context.Quizzes
+                .Include(q => q.Questions)
+                .ThenInclude(q => q.Answers)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (quiz == null)
             {
                 return NotFound();
             }
 
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] = "Delete failed. Please try again.";
+            }
+
             return View(quiz);
         }
 
+        [Authorize(Roles = "Edit")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var quiz = await _context.Quizzes.FindAsync(id);
-            _context.Quizzes.Remove(quiz);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            if (quiz == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                _context.Quizzes.Remove(quiz);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Delete), new {id = id, saveChnagesError = true});
+            }
         }
 
         private bool QuizExists(int id)
