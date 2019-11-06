@@ -122,6 +122,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
+        [Authorize(Roles = "Edit")]
         public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -147,6 +148,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
             return View(quiz);
         }
 
+        [Authorize(Roles = "Edit")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
