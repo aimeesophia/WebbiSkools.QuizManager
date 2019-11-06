@@ -105,7 +105,9 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         public void Create_When_DeleteAnswer_Button_Is_Clicked_Removes_Answer_Element()
         {
             // Arrange
-            var expectedNumberOfAnswerElements = 2;
+            var expectedNumberOfAnswerElements = 4;
+            _driver.FindElement(By.ClassName("add-answer-button")).Click();
+            _driver.FindElement(By.ClassName("add-answer-button")).Click();
 
             // Act
             _driver.FindElement(By.ClassName("delete-answer-button")).Click();
