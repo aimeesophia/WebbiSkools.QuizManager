@@ -6,7 +6,15 @@
         });
 
         $(document).on("click", ".add-answer-button", function () {
-            addAnswer(this);
+            var answersElement = $(this).prevAll(".answers");
+
+            if (getNumberOfAnswerElements(answersElement) < 5) {
+                addAnswer(answersElement);
+
+                if (getNumberOfAnswerElements(answersElement) === 5) {
+                    disableAddAnswerButton(answersElement);
+                }
+            }
         });
 
         $(document).on("click", ".delete-question-button", function () {
@@ -78,8 +86,8 @@
         return questionFormGroupHtml;
     }
 
-    function addAnswer(addAnswerButton) {
-        $(addAnswerButton).prevAll(".answers").append(createAnswerFormGroup());
+    function addAnswer(answersElement) {
+        $(answersElement).append(createAnswerFormGroup());
     }
 
     function createAnswerFormGroup() {
@@ -124,6 +132,16 @@
 
             questionCount++;
         });
+    }
+
+    function getNumberOfAnswerElements(answersElement) {
+        return $(answersElement).find(".answer").length;
+    }
+
+    function disableAddAnswerButton(answersElement) {
+        var addAnswerButton = $(answersElement).parents(".question-and-answers-group").find(".add-answer-button");
+
+        $(addAnswerButton).attr("disabled", "disabled");
     }
 
     // Exposed functions
