@@ -75,5 +75,19 @@ namespace WebbiSkools.QuizManager.Tests
             // Assert
             Assert.AreEqual(expected, actual.ViewName);
         }
+
+        [Test]
+        public async Task Login_Post_When_User_Is_Not_Found_Adds_ModelState_Error()
+        {
+            // Arrange
+            var expected = 1;
+
+            // Act
+            var result = await _accountController.Login(new User() { Username = "TestUsername", Password = "TestPassword" }) as ViewResult;
+            var actual = result.ViewData.ModelState.ErrorCount;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

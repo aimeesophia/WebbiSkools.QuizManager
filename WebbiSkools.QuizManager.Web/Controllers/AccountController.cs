@@ -52,6 +52,8 @@ namespace WebbiSkools.QuizManager.Web.Controllers
 
                     return RedirectToAction("Index", "Quizzes");
                 }
+
+                ModelState.AddModelError(string.Empty, "Invalid username/password combination.");
             }
 
             return View("Login");
