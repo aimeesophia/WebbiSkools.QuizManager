@@ -127,5 +127,22 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             // Assert
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void Login_When_Unsuccessful_Displays_Error_Alert()
+        {
+            // Arrange
+            _driver.Navigate().GoToUrl(TestHelper.LoginUrl);
+
+            // Act
+            _driver.FindElement(By.CssSelector("input[name='Username']")).SendKeys("TestUser");
+            _driver.FindElement(By.CssSelector("input[name='Password'")).SendKeys("TestPassword");
+            _driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+
+            var alertElementVisible = _driver.FindElement(By.ClassName("alert")).Displayed;
+
+            // Assert
+            Assert.IsTrue(alertElementVisible);
+        }
     }
 }
