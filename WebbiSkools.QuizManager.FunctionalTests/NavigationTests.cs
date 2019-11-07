@@ -138,5 +138,70 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             // Assert
             Assert.AreEqual(expected, _driver.Url);
         }
+
+        [Test]
+        public void Navigation_When_User_Is_Not_Authenticated_And_Tries_To_Access_QuizzesController_Index_Is_Redirected_To_AccountController_Login()
+        {
+            // Arrange
+            var expected = TestHelper.LoginUrl + "?ReturnUrl=%2F";
+
+            // Act
+            _driver.Navigate().GoToUrl(TestHelper.IndexUrl);
+
+            // Assert
+            Assert.AreEqual(expected, _driver.Url);
+        }
+
+        [Test]
+        public void Navigation_When_User_Is_Not_Authenticated_And_Tries_To_Access_QuizzesController_Create_Is_Redirected_To_AccountController_Login()
+        {
+            // Arrange
+            var expected = TestHelper.LoginUrl + "?ReturnUrl=%2FQuizzes%2FCreate";
+
+            // Act
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesCreateUrl);
+
+            // Assert
+            Assert.AreEqual(expected, _driver.Url);
+        }
+
+        [Test]
+        public void Navigation_When_User_Is_Not_Authenticated_And_Tries_To_Access_QuizzesController_Details_Is_Redirected_To_AccountController_Login()
+        {
+            // Arrange
+            var expected = TestHelper.LoginUrl + "?ReturnUrl=%2FQuizzes%2FDetails%3Fid%3D1";
+
+            // Act
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesDetailsUrl);
+
+            // Assert
+            Assert.AreEqual(expected, _driver.Url);
+        }
+
+        [Test]
+        public void Navigation_When_User_Is_Not_Authenticated_And_Tries_To_Access_QuizzesController_Edit_Is_Redirected_To_AccountController_Login()
+        {
+            // Arrange
+            var expected = TestHelper.LoginUrl + "?ReturnUrl=%2FQuizzes%2FEdit%3Fid%3D1";
+
+            // Act
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesEditUrl);
+
+            // Assert
+            Assert.AreEqual(expected, _driver.Url);
+        }
+
+        [Test]
+        public void Navigation_When_User_Is_Not_Authenticated_And_Tries_To_Access_QuizzesController_Delete_Is_Redirected_To_AccountController_Login()
+        {
+            // Arrange
+            var expected = TestHelper.LoginUrl + "?ReturnUrl=%2FQuizzes%2FDelete%3Fid%3D1";
+
+            // Act
+            _driver.Navigate().GoToUrl(TestHelper.QuizzesDeleteUrl);
+
+            // Assert
+            Assert.AreEqual(expected, _driver.Url);
+        }
     }
 }

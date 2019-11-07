@@ -13,6 +13,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         public const string QuizzesCreateUrl = "https://localhost:5001/Quizzes/Create";
         public const string QuizzesDeleteUrl = "https://localhost:5001/Quizzes/Delete?id=1";
         public const string QuizzesDeleteConfirmedUrl = "https://localhost:5001/Quizzes/Delete?id=1";
+        public const string QuizzesDetailsUrl = "https://localhost:5001/Quizzes/Details?id=1";
         public const string QuizzesEditUrl = "https://localhost:5001/Quizzes/Edit?id=1";
         public const string ErrorAccessDeniedUrl = "https://localhost:5001/Error/AccessDenied";
         public const string IndexUrl = "https://localhost:5001/";

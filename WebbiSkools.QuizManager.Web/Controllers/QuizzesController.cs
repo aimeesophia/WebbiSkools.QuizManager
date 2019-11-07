@@ -13,6 +13,7 @@ using WebbiSkools.QuizManager.Web.Models;
 
 namespace WebbiSkools.QuizManager.Web.Controllers
 {
+    [Authorize]
     public class QuizzesController : Controller
     {
         private readonly QuizManagerContext _context;
