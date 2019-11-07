@@ -32,7 +32,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         public void Login_When_Successful_Redirects_To_QuizzesController_Index()
         {
             // Arrange
-            var expected = "https://localhost:44302/";
+            var expected = TestHelper.IndexUrl;
             _driver.Navigate().GoToUrl(TestHelper.LoginUrl);
 
             // Act
@@ -48,7 +48,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         public void Login_When_Unsuccessful_Stays_On_Login()
         {
             // Arrange
-            var expected = "https://localhost:44302/Account/Login";
+            var expected = TestHelper.LoginUrl;
             _driver.Navigate().GoToUrl(TestHelper.LoginUrl);
 
             // Act
@@ -117,7 +117,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
         public void Logout_Returns_User_To_Login_Page()
         {
             // Arrange
-            var expected = "https://localhost:44302/Account/Login";
+            var expected = TestHelper.LoginUrl;
             TestHelper.Login("RestrictedPermissionsUser", _driver);
 
             // Act
