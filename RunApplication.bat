@@ -1,2 +1,2 @@
 cd .\WebbiSkools.QuizManager.Web\
-dotnet run
+dotnet run --launch-profile "QuizManager_PROD"

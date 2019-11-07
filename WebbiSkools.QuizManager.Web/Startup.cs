@@ -31,6 +31,15 @@ namespace WebbiSkools.QuizManager.Web
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+                options.AccessDeniedPath = "/Error/AccessDenied");
+            services.AddControllersWithViews();
+            services.AddDbContext<QuizManagerContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TestConnection")));
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
