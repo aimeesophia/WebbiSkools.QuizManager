@@ -1,9 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using WebbiSkools.QuizManager.Web.Controllers;
 using WebbiSkools.QuizManager.Web.Data;
 using WebbiSkools.QuizManager.Web.Models;
@@ -43,7 +42,7 @@ namespace WebbiSkools.QuizManager.Tests
             var expected = "Login";
 
             // Act
-            var actual = ((ViewResult) _accountController.Login()).ViewName;
+            var actual = ((ViewResult)_accountController.Login()).ViewName;
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -70,7 +69,7 @@ namespace WebbiSkools.QuizManager.Tests
             var expected = "Login";
 
             // Act
-            var actual = await _accountController.Login(new User() {Username = "TestUsername", Password = "TestPassword"}) as ViewResult;
+            var actual = await _accountController.Login(new User() { Username = "TestUsername", Password = "TestPassword" }) as ViewResult;
 
             // Assert
             Assert.AreEqual(expected, actual.ViewName);

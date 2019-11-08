@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace WebbiSkools.QuizManager.Web.Utilities
 {

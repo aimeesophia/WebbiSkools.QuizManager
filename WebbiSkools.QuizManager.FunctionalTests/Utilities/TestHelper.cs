@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OpenQA.Selenium;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
-using OpenQA.Selenium;
 
 namespace WebbiSkools.QuizManager.FunctionalTests
 {

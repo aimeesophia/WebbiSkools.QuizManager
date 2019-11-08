@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using WebbiSkools.QuizManager.Web.Data;
 using WebbiSkools.QuizManager.Web.Models;
 
@@ -130,7 +126,7 @@ namespace WebbiSkools.QuizManager.Web.Controllers
                         {
                             return NotFound();
                         }
-                        
+
                         ModelState.AddModelError("", "Unable to save changes. Please try again.");
                     }
                 }

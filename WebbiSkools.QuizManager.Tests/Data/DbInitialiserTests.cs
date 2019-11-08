@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using NUnit.Framework;
 using WebbiSkools.QuizManager.Web.Data;
 using WebbiSkools.QuizManager.Web.Models;
 
@@ -61,9 +57,9 @@ namespace WebbiSkools.QuizManager.Tests
         public void Initialise_When_Users_Is_Not_Empty_Does_Not_Populate_Users()
         {
             // Arrange
-            _quizManagerContext.Users.Add(new User() {Username = "TestUsername", Password = "TestPassword", Role = "TestRole"});
+            _quizManagerContext.Users.Add(new User() { Username = "TestUsername", Password = "TestPassword", Role = "TestRole" });
             _quizManagerContext.SaveChanges();
-            _quizManagerContext.Quizzes.Add(new Quiz() {Title = "The Software Development Lifecycle"});
+            _quizManagerContext.Quizzes.Add(new Quiz() { Title = "The Software Development Lifecycle" });
             _quizManagerContext.SaveChanges();
             _quizManagerContext.Questions.Add(new Question() { QuizId = _quizManagerContext.Quizzes.Single(x => x.Title == "The Software Development Lifecycle").Id, Text = "At which point in the software development lifecycle is a system design document produced?" });
             _quizManagerContext.SaveChanges();

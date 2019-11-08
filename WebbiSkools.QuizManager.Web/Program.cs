@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using WebbiSkools.QuizManager.Web.Data;
 
 namespace WebbiSkools.QuizManager.Web

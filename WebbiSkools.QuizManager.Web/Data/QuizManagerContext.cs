@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using WebbiSkools.QuizManager.Web.Models;
 
 namespace WebbiSkools.QuizManager.Web.Data

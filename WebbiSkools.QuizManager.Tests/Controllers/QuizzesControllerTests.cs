@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using WebbiSkools.QuizManager.Web.Controllers;
 using WebbiSkools.QuizManager.Web.Data;
 using WebbiSkools.QuizManager.Web.Models;
@@ -247,7 +245,7 @@ namespace WebbiSkools.QuizManager.Tests.Controllers
             // Assert
             actual.Model.Should().BeEquivalentTo(expected);
         }
-        
+
         [Test]
         public async Task Delete_When_Id_Is_Null_Returns_NotFoundResult()
         {

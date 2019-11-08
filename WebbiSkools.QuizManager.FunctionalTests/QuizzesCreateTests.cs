@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebbiSkools.QuizManager.FunctionalTests
 {
@@ -87,7 +84,7 @@ namespace WebbiSkools.QuizManager.FunctionalTests
             // Assert
             Assert.AreEqual(expectedNumberOfAnswerTextInputElements, actualNumberOfAnswerTextInputElements);
         }
-        
+
         [Test]
         public void Create_When_DeleteQuestion_Button_Is_Clicked_Removes_QuestionAndAnswersGroup_Element()
         {
