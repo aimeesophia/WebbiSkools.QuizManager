@@ -7,7 +7,9 @@
         });
 
         $(document).on("click", ".add-question-button", function () {
-            addQuestion();
+            addQuestion(this);
+            toggleAddAnswerButtons();
+            toggleDeleteAnswerButtons();
         });
 
         $(document).on("click", ".add-answer-button", function () {
@@ -20,6 +22,8 @@
 
         $(document).on("click", ".delete-question-button", function () {
             deleteQuestion(this);
+            toggleAddAnswerButtons();
+            toggleDeleteAnswerButtons();
         });
 
         $(document).on("click", ".delete-answer-button", function () {
@@ -48,43 +52,45 @@
     }
 
     // Private functions
-    function addQuestion() {
-        $("#all-questions-and-answers").append(createQuestionAndAnswersGroup());
+    function addQuestion(addQuestionButton) {
+        var questionAndAnswersGroup = $(addQuestionButton).parent(".question-and-answers-group");
+
+        $(questionAndAnswersGroup).after(createQuestionAndAnswersGroup());
     }
 
     function createQuestionAndAnswersGroup() {
         var questionFormGroupHtml = '<div class="question-and-answers-group mb-3">' +
             '<div class="question">' +
             '<div class="form-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control question-text-input" name="TOBECHANGED" placeholder="Question" />' +
-            '<span asp-validation-for="TOBECHANGED" class="text-danger"></span>' +
+            '<input class="form-control question-text-input" placeholder="Question" />' +
+            '<span class="text-danger"></span>' +
             '</div>' +
             '</div>' +
             '<div class="answers">' +
             '<div class="form-group answer">' +
             '<div class="input-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control answer-text-input" name="TOBECHANGED" placeholder="Answer" />' +
+            '<input class="form-control answer-text-input" placeholder="Answer" />' +
             '<button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>' +
             '</div>' +
-            '<span asp-validation-for="TOBECHANGED"></span>' +
+            '<span></span>' +
             '</div>' +
             '<div class="form-group answer">' +
             '<div class="input-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control answer-text-input" name="TOBECHANGED" placeholder="Answer" />' +
+            '<input class="form-control answer-text-input" placeholder="Answer" />' +
             '<button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>' +
             '</div>' +
-            '<span asp-validation-for="TOBECHANGED"></span>' +
+            '<span></span>' +
             '</div>' +
             '<div class="form-group answer">' +
             '<div class="input-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control answer-text-input" name="TOBECHANGED" placeholder="Answer" />' +
+            '<input class="form-control answer-text-input" placeholder="Answer" />' +
             '<button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>' +
             '</div>' +
-            '<span asp-validation-for="TOBECHANGED"></span>' +
+            '<span></span>' +
             '</div>' +
             '</div>' +
-            '<button type="button" class="btn btn-success add-question-button">Add Question</button>' +
-            '<button type="button" class="btn btn-success add-answer-button">Add Answer</button>' +
+            '<button type="button" class="btn btn-success add-question-button">Add Question</button> ' +
+            '<button type="button" class="btn btn-success add-answer-button">Add Answer</button> ' +
             '<button type="button" class="btn btn-danger delete-question-button">Delete Question</button>' +
             '</div>';
 
@@ -98,10 +104,10 @@
     function createAnswerFormGroup() {
         var answerFormGroupHtml = '<div class="form-group answer">' +
             '<div class="input-group">' +
-            '<input asp-for="TOBECHANGED" class="form-control answer-text-input" name="TOBECHANGED" placeholder="Answer" />' +
+            '<input class="form-control answer-text-input" placeholder="Answer" />' +
             '<button type="button" class="btn btn-danger delete-answer-button">Delete Answer</button>' +
             '</div>' +
-            '<span asp-validation-for="TOBECHANGED"></span>' +
+            '<span></span>' +
             '</div>';
 
         return answerFormGroupHtml;
